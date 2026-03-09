@@ -14,7 +14,10 @@ struct Item {
 struct Item mochila[MAX_ITENS];
 int totalItens = 0;
 
-// Função para adicionar item
+
+// =============================
+// ADICIONAR ITEM
+// =============================
 void adicionarItem() {
 
     if (totalItens >= MAX_ITENS) {
@@ -36,7 +39,10 @@ void adicionarItem() {
     printf("\nItem adicionado com sucesso!\n");
 }
 
-// Função para remover item pelo nome
+
+// =============================
+// REMOVER ITEM
+// =============================
 void removerItem() {
 
     char nomeBusca[50];
@@ -49,7 +55,6 @@ void removerItem() {
 
         if (strcmp(mochila[i].nome, nomeBusca) == 0) {
 
-            // desloca os itens para fechar o espaço
             for (int j = i; j < totalItens - 1; j++) {
                 mochila[j] = mochila[j + 1];
             }
@@ -67,7 +72,10 @@ void removerItem() {
     }
 }
 
-// Função para listar itens
+
+// =============================
+// LISTAR ITENS
+// =============================
 void listarItens() {
 
     if (totalItens == 0) {
@@ -80,6 +88,7 @@ void listarItens() {
     printf("---------------------------------------------------\n");
 
     for (int i = 0; i < totalItens; i++) {
+
         printf("%-20s %-20s %-10d\n",
                mochila[i].nome,
                mochila[i].tipo,
@@ -87,7 +96,42 @@ void listarItens() {
     }
 }
 
-// Função principal
+
+// =============================
+// BUSCAR ITEM POR NOME
+// =============================
+void buscarItem() {
+
+    char nomeBusca[50];
+    int encontrado = 0;
+
+    printf("\nDigite o nome do item que deseja buscar: ");
+    scanf(" %[^\n]", nomeBusca);
+
+    // Busca sequencial
+    for (int i = 0; i < totalItens; i++) {
+
+        if (strcmp(mochila[i].nome, nomeBusca) == 0) {
+
+            printf("\n===== ITEM ENCONTRADO =====\n");
+            printf("Nome: %s\n", mochila[i].nome);
+            printf("Tipo: %s\n", mochila[i].tipo);
+            printf("Quantidade: %d\n", mochila[i].quantidade);
+
+            encontrado = 1;
+            break;
+        }
+    }
+
+    if (!encontrado) {
+        printf("\nItem não encontrado na mochila.\n");
+    }
+}
+
+
+// =============================
+// MENU PRINCIPAL
+// =============================
 int main() {
 
     int opcao;
@@ -98,6 +142,7 @@ int main() {
         printf("1 - Adicionar item\n");
         printf("2 - Remover item\n");
         printf("3 - Listar itens\n");
+        printf("4 - Buscar item por nome\n");
         printf("0 - Sair\n");
         printf("Escolha uma opção: ");
         scanf("%d", &opcao);
@@ -114,6 +159,10 @@ int main() {
 
             case 3:
                 listarItens();
+                break;
+
+            case 4:
+                buscarItem();
                 break;
 
             case 0:
